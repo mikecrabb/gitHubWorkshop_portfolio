@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>1-1 Simple API Call</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+    <ul id="repos"></ul>
+    <li v-for="repo in repos"><strong>{{ repo.name }}</strong> - {{repo.description}}</li>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        repos: []
+      },
+      created() {
+        var vm = this
+        axios.get('https://api.github.com/users/mikecrabb/repos')
+          .then(function(response) {
+            console.log(response.data);
+            vm.repos = response.data
+          })
+      }
+    })
+  </script>
+
+</body>
+
+</html>
